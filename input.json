@@ -1,0 +1,165 @@
+{
+  "format_version": 1,
+  "meta": {
+    "compatible_with": "MakeStory API GET /api/story-maker/{storyId} (authenticated)",
+    "notes": [
+      "Group work by scenes[].id (stable story_scenes.id) or by items[].scene_id.",
+      "Each scene has narrations (0+), dialogues (0+), and at most one image object (image-prompt item).",
+      "Chronological order within each array follows story item creation/order.",
+      "image_status values include: waiting, generating, generated, failed (see backend ImageStatus)."
+    ]
+  },
+  "story": {
+    "id": 1,
+    "title": "Example title",
+    "description": "One-line logline or null",
+    "prompt": "Original user prompt and/or step-builder log",
+    "status": "completed",
+    "image_style": "anime",
+    "image_quantity": "20",
+    "slug": "example-slug-or-null",
+    "is_preview": false,
+    "is_step_builder": true,
+    "step_builder_custom_instructions": null,
+    "created_at": "2026-05-13T12:00:00.000000Z",
+    "updated_at": "2026-05-13T12:30:00.000000Z",
+    "failed_step_user_prompt": null
+  },
+  "items": [
+    {
+      "id": 101,
+      "type": "narration",
+      "content": "Narration text for this beat.",
+      "character": null,
+      "image_prompt": null,
+      "image_url": null,
+      "image_status": null,
+      "order": 0,
+      "scene_id": 1001,
+      "created_at": "2026-05-13T12:01:00.000000Z"
+    },
+    {
+      "id": 102,
+      "type": "dialogue",
+      "content": "Spoken line in English.",
+      "character": "Character Name",
+      "image_prompt": null,
+      "image_url": null,
+      "image_status": null,
+      "order": 1,
+      "scene_id": 1001,
+      "created_at": "2026-05-13T12:01:05.000000Z"
+    },
+    {
+      "id": 103,
+      "type": "image-prompt",
+      "content": "Scene description used as context for the panel.",
+      "character": null,
+      "image_prompt": "danbooru style tag line for diffusion",
+      "image_url": "https://example.com/storage/panel.webp",
+      "image_status": "generated",
+      "order": 2,
+      "scene_id": 1001,
+      "created_at": "2026-05-13T12:01:10.000000Z"
+    },
+    {
+      "id": 104,
+      "type": "narration",
+      "content": "Next beat starts here.",
+      "character": null,
+      "image_prompt": null,
+      "image_url": null,
+      "image_status": null,
+      "order": 3,
+      "scene_id": 1002,
+      "created_at": "2026-05-13T12:02:00.000000Z"
+    },
+    {
+      "id": 105,
+      "type": "image-prompt",
+      "content": "Second panel scene text.",
+      "character": null,
+      "image_prompt": "tags for second image",
+      "image_url": null,
+      "image_status": "waiting",
+      "order": 4,
+      "scene_id": 1002,
+      "created_at": "2026-05-13T12:02:10.000000Z"
+    }
+  ],
+  "scenes": [
+    {
+      "id": 1001,
+      "narrations": [
+        {
+          "id": 101,
+          "type": "narration",
+          "content": "Narration text for this beat.",
+          "character": null,
+          "image_prompt": null,
+          "image_url": null,
+          "image_status": null,
+          "order": 0,
+          "scene_id": 1001,
+          "created_at": "2026-05-13T12:01:00.000000Z"
+        }
+      ],
+      "dialogues": [
+        {
+          "id": 102,
+          "type": "dialogue",
+          "content": "Spoken line in English.",
+          "character": "Character Name",
+          "image_prompt": null,
+          "image_url": null,
+          "image_status": null,
+          "order": 1,
+          "scene_id": 1001,
+          "created_at": "2026-05-13T12:01:05.000000Z"
+        }
+      ],
+      "image": {
+        "id": 103,
+        "type": "image-prompt",
+        "content": "Scene description used as context for the panel.",
+        "character": null,
+        "image_prompt": "danbooru style tag line for diffusion",
+        "image_url": "https://example.com/storage/panel.webp",
+        "image_status": "generated",
+        "order": 2,
+        "scene_id": 1001,
+        "created_at": "2026-05-13T12:01:10.000000Z"
+      }
+    },
+    {
+      "id": 1002,
+      "narrations": [
+        {
+          "id": 104,
+          "type": "narration",
+          "content": "Next beat starts here.",
+          "character": null,
+          "image_prompt": null,
+          "image_url": null,
+          "image_status": null,
+          "order": 3,
+          "scene_id": 1002,
+          "created_at": "2026-05-13T12:02:00.000000Z"
+        }
+      ],
+      "dialogues": [],
+      "image": {
+        "id": 105,
+        "type": "image-prompt",
+        "content": "Second panel scene text.",
+        "character": null,
+        "image_prompt": "tags for second image",
+        "image_url": null,
+        "image_status": "waiting",
+        "order": 4,
+        "scene_id": 1002,
+        "created_at": "2026-05-13T12:02:10.000000Z"
+      }
+    }
+  ]
+}

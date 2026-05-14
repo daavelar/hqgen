@@ -1,0 +1,99 @@
+Como fazer a request para gerar uma HQ
+======================================
+
+Endpoint para gerar paginas:
+
+POST /render
+
+Endpoint para gerar uma imagem por cena:
+
+POST /render/scenes
+
+Header obrigatorio:
+
+Content-Type: application/json
+
+Formato do body:
+
+{
+  "story": {
+    "format_version": 1,
+    "story": {
+      "id": 1,
+      "title": "A Cidade das Estrelas",
+      "description": "Uma aventura curta em estilo anime.",
+      "image_style": "anime"
+    },
+    "scenes": [
+      {
+        "id": 1001,
+        "narrations": [
+          {
+            "content": "A noite caiu sobre a cidade iluminada por letreiros neon."
+          }
+        ],
+        "dialogues": [
+          {
+            "character": "Luna",
+            "content": "Se seguirmos as estrelas, encontraremos a saida."
+          }
+        ],
+        "image": {
+          "content": "Luna observa a cidade futurista do alto de um predio.",
+          "image_url": "https://example.com/images/luna-city.webp",
+          "image_status": "generated"
+        }
+      }
+    ]
+  },
+  "options": {
+    "layout_mode": "webtoon",
+    "page_width": 800,
+    "panel_height": 980,
+    "theme_dark": true,
+    "font_scale": 1.0
+  }
+}
+
+Campos obrigatorios no body:
+
+- story: objeto com os dados da historia.
+- story.scenes: lista com pelo menos uma cena.
+
+Campos usados em cada cena:
+
+- id: identificador da cena.
+- narrations[].content: texto de narracao do painel.
+- dialogues[].character: nome do personagem que fala.
+- dialogues[].content: fala do personagem.
+- image.content: descricao visual da cena.
+- image.image_url: URL da imagem usada no painel.
+- image.image_status: status da imagem, normalmente "generated".
+
+Exemplo usando curl:
+
+curl -X POST http://localhost:5000/render \
+  -H "Content-Type: application/json" \
+  --data-binary @request.json
+
+Para gerar imagens separadas por cena, use o mesmo request.json e troque a URL:
+
+curl -X POST http://localhost:5000/render/scenes \
+  -H "Content-Type: application/json" \
+  --data-binary @request.json
+
+Resposta esperada:
+
+{
+  "story_id": "a-cidade-das-estrelas",
+  "mode": "pages",
+  "files": [
+    {
+      "filename": "page_1.png",
+      "key": "generated-stories/a-cidade-das-estrelas/page_1.png",
+      "bucket": "nome-do-bucket",
+      "content_type": "image/png",
+      "url": "https://cdn.exemplo.com/generated-stories/a-cidade-das-estrelas/page_1.png"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+Pillow
+fastapi
+uvicorn
+boto3
+python-dotenv
+mediapipe
+numpy
+
