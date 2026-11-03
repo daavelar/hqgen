@@ -5,22 +5,40 @@ from pathlib import Path
 from PIL import ImageDraw, ImageFont
 
 
+FONTS_DIR = Path(__file__).resolve().parent / "fonts"
+
 FONT_CANDIDATES = [
+    str(FONTS_DIR / "ComicNeue-Regular.ttf"),
     "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
     "/usr/share/fonts/truetype/liberation2/LiberationSans-Regular.ttf",
     "/Library/Fonts/Arial.ttf",
 ]
 
 FONT_BOLD_CANDIDATES = [
+    str(FONTS_DIR / "ComicNeue-Bold.ttf"),
     "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
     "/usr/share/fonts/truetype/liberation2/LiberationSans-Bold.ttf",
     "/Library/Fonts/Arial Bold.ttf",
+]
+
+FONT_DISPLAY_CANDIDATES = [
+    str(FONTS_DIR / "Bangers-Regular.ttf"),
+    str(FONTS_DIR / "ComicNeue-Bold.ttf"),
+    "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
 ]
 
 
 def load_font(size: int, bold: bool = False) -> ImageFont.ImageFont:
     candidates = FONT_BOLD_CANDIDATES if bold else FONT_CANDIDATES
 
+    return _load_first_available(candidates, size)
+
+
+def load_display_font(size: int) -> ImageFont.ImageFont:
+    return _load_first_available(FONT_DISPLAY_CANDIDATES, size)
+
+
+def _load_first_available(candidates: list[str], size: int) -> ImageFont.ImageFont:
     for font_path in candidates:
         if Path(font_path).exists():
             return ImageFont.truetype(font_path, size=size)

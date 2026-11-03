@@ -27,6 +27,10 @@ def main() -> None:
         face_detection_enabled=not args.disable_face_detection,
         bubble_anchor_aware=not args.disable_anchor_aware,
         debug_faces=args.debug_faces,
+        bubble_tail_enabled=not args.disable_bubble_tail,
+        character_tag_enabled=not args.disable_character_tag,
+        bubble_outline_width=args.bubble_outline_width,
+        position_jitter_px=args.jitter_px,
     )
     output_dir = args.output_dir
 
@@ -98,6 +102,28 @@ def parse_args() -> argparse.Namespace:
         "--debug-faces",
         action="store_true",
         help="Draw detected face bounding boxes on top of each panel for inspection.",
+    )
+    parser.add_argument(
+        "--disable-bubble-tail",
+        action="store_true",
+        help="Do not draw the speech bubble tail pointing toward the speaker.",
+    )
+    parser.add_argument(
+        "--disable-character-tag",
+        action="store_true",
+        help="Render the speaker name inline instead of as a colored tag.",
+    )
+    parser.add_argument(
+        "--bubble-outline-width",
+        default=3,
+        type=int,
+        help="Outline thickness for dialogue bubbles and tags.",
+    )
+    parser.add_argument(
+        "--jitter-px",
+        default=9,
+        type=int,
+        help="Maximum random offset (in pixels) applied to dialogue bubbles to break grid alignment.",
     )
 
     return parser.parse_args()

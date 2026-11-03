@@ -52,4 +52,8 @@ class RenderOptions:
     bubble_anchor_aware: bool = True
     shrink_retry_steps: tuple[float, ...] = (1.0, 0.85, 0.72)
     debug_faces: bool = False
+    bubble_outline_width: int = 3
+    bubble_tail_enabled: bool = True
+    character_tag_enabled: bool = True
+    position_jitter_px: int = 9
 
